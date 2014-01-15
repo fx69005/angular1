@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" type="text/css" href="css/base.css" />
+        <title>todo list angular</title>
+    </head>
+    <body ng-app ="todo">
+        <section id="todoapp" ng-controller="TodoCtrl">
+            <header id="header">
+                <h1>todoList</h1>
+                <form action="#" id="todo-form" ng-submit="addTodo()">
+                    <input type="text" id="new-todo" placeholder="nouvelle tache" autofocus autocomplete="off" ng-model="newtodo">
+                </form>
+            </header>
+
+            <section id="main">
+            <input type="checkbox" id="toggle-all" ng-model="allchecked" ng-click="checkAllTodo(allchecked)">
+                <ul id="todo-list">
+                    <li ng-repeat="todo in todos | filter:statusFilter | orderBy :'completed'" ng-class="{completed : todo.completed, editing: todo.editing}" ng-dblclick="todo.editing = true">
+                        <div class="view">
+                            <input type="checkbox" class="toggle" ng-model="todo.completed">
+                            <label>{{todo.name}}</label>
+                            <button class="destroy" ng-click="removeTodo($index)"></button>
+                        </div>
+                        <form action="#">
+                            <input class="edit" ng-model="todo.name" ng-blur="editTodo(todo)">
+                                
+                            </input> 
+                        </form>
+                    </li>
+                </ul>
+            </section>
+           
+            <footer id="footer">
+                <span id="todo-count"><strong>{{remaining}}</strong> Tâches restantes</span>
+                <ul id="filters">
+                    <li><a href="#/" ng-class="{selected: location.path() == '/'}">Toutes</a></li>
+                    <li><a href="#/active" ng-class="{selected: location.path() == '/active'}">Active</a></li>
+                    <li><a href="#/done" ng-class="{selected: location.path() == '/done'}">Finit</a></li>
+                </ul>
+            </footer>
+
+        </section>
+        
+
+        <script type="text/javascript" src="spec/lib/angular.min.js"></script>
+        <script type="text/javascript" src="js/app.js"></script>
+    </body>
+</html>
